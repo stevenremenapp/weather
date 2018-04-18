@@ -21,8 +21,13 @@ if (navigator.geolocation) {
 
     request.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
+        //you can't accurately move to find the data without parsing the response because the computer thinks it's one long string
+        let response = JSON.parse(this.responseText);
+        //log unparsed response
         //console.log(request.responseText);
-        console.log(request.main.temp);
+
+        //log parsed response
+        console.log(response.main.temp);
       }
     }
 
