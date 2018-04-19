@@ -27,7 +27,27 @@ if (navigator.geolocation) {
         //console.log(request.responseText);
 
         //log parsed response
-        console.log(response.main.temp);
+        console.log(response);
+
+        //display the temperature
+        let tempDisplay = document.querySelector('#temp');
+        //info on javascript escapes here: https://mathiasbynens.be/notes/javascript-escapes
+        tempDisplay.textContent = "Temperature: " + response.main.temp + " F\xb0";
+
+        //display the icon
+        let iconDisplay = document.querySelector('#icon-js');
+        let icon = response.weather[0].icon;
+        let iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
+        iconDisplay.setAttribute("src", iconUrl);
+        //iconDisplay.src = iconUrl;
+
+        //display the location
+        let location = document.querySelector('#location');
+        location.textContent = "Location: " + response.name + ",";
+
+        //display the country
+        let country = document.querySelector('#country');
+        country.textContent = response.sys.country;
       }
     }
 
