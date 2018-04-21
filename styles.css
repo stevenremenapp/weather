@@ -1,9 +1,10 @@
 body {
-  margin: 0;
-  background: salmon;
-  /*background: #556270;
-  background: -webkit-linear-gradient(to left, #556270, #ff6b6b);
-  background: linear-gradient(to left, #556270, #ff6b6b);*/
+  /*GRADIENT DOESN'T WORK WITH A BODY MARGIN OF 0*/
+  /*margin: 0;*/
+  /*background: salmon;*/
+  background: #556270;
+  background: -webkit-linear-gradient(to right, #556270, #ff6b6b);
+  background: linear-gradient(to right, #556270, #ff6b6b);
 }
 
 .card {
@@ -25,10 +26,11 @@ body {
   right: 0;
   margin: auto;
   text-align: center;
-  background: rgba(255, 255, 255, 0.2);
+  /*background: rgba(255, 255, 255, 0.05);*/
   border-radius: 5%;
   /*box-shadow: 7px 7px 30px 5px rgba(198, 198, 198, 0.4);*/
-  box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.15),
+              inset 0 0 180px 40px rgba(255, 255, 255, 0.15);
   /*width: 40%;
   height: 80%;
   margin: 10% 30%;*/
