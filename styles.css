@@ -2,9 +2,9 @@ body {
   /*GRADIENT DOESN'T WORK WITH A BODY MARGIN OF 0*/
   /*margin: 0;*/
   /*background: salmon;*/
-  background: #556270;
-  background: -webkit-linear-gradient(to right, #556270, #ff6b6b);
-  background: linear-gradient(to right, #556270, #ff6b6b);
+  background: #D3CCE3;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .card {
