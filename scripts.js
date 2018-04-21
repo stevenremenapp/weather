@@ -13,7 +13,7 @@ if (navigator.geolocation) {
     lonText.textContent = "Longitude: " + longitudeMeasurement;
     acc.textContent = "Accuracy: " + position.coords.accuracy + " m";
     let timeStamp = new Date(position.timestamp);
-    ts.textContent = "Time: " + timeStamp.toLocaleString();
+    ts.textContent = "Updated: " + timeStamp.toLocaleString();
 
     //make API call for weather data
     let request = new XMLHttpRequest();
@@ -32,13 +32,15 @@ if (navigator.geolocation) {
         //display the temperature
         let tempDisplay = document.querySelector('#temp');
         //info on javascript escapes here: https://mathiasbynens.be/notes/javascript-escapes
-        tempDisplay.textContent = "Temperature: " + response.main.temp + " F\xb0";
+        tempDisplay.textContent = "Temperature: " + response.main.temp + " \xb0F";
 
         //display the icon
         let iconDisplay = document.querySelector('#icon-js');
         let icon = response.weather[0].icon;
         let iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
         iconDisplay.setAttribute("src", iconUrl);
+        iconDisplay.style.height = '100px';
+        iconDisplay.style.width = '100px';
         //iconDisplay.src = iconUrl;
 
         //display the location
