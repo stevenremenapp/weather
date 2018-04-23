@@ -32,8 +32,24 @@ if (navigator.geolocation) {
         //display the temperature
         let tempDisplay = document.querySelector('#temp');
         //info on javascript escapes here: https://mathiasbynens.be/notes/javascript-escapes
-        tempDisplay.textContent = Math.round(response.main.temp) + " \xb0F";
+        let tempFahrenheit = Math.round(response.main.temp);
+        let tempCelsius = Math.round((tempFahrenheit -32) * 5/9);
+        tempDisplay.textContent = tempFahrenheit + " \xb0F";
         console.log(response.main.temp);
+        console.log(tempFahrenheit);
+        console.log(tempCelsius);
+
+        //change to celsius and back to fahrenheit if C or F is clicked
+        let celsius = document.querySelector('#celsius');
+        let fahrenheit = document.querySelector('#fahrenheit');
+
+        celsius.addEventListener('click', function() {
+          tempDisplay.textContent = tempCelsius + " \xb0C";
+        });
+
+        fahrenheit.addEventListener('click', function() {
+          tempDisplay.textContent = tempFahrenheit + " \xb0F";
+        })
 
         //display the icon
         let iconDisplay = document.querySelector('#icon-js');
