@@ -16,8 +16,8 @@ body {
   align-items: center;
   justify-content: center;*/
   /*height: 100vh;*/
-  width: 300px;
-  height: 400px;
+  width: 280px;
+  height: 380px;
   /*thanks: https://stackoverflow.com/questions/356809/best-way-to-center-a-div-on-a-page-vertically-and-horizontally*/
   position: absolute;
   top: 0;
@@ -35,4 +35,55 @@ body {
   height: 80%;
   margin: 10% 30%;*/
   /*text-align: center;*/
+}
+
+h1 {
+  font-family: Palatino, serif;
+  font-style: italic;
+  transform: scaleY(1.25);
+  margin-top: 0.25em;
+}
+
+p,
+span {
+  font-family: arial, sans-serif;
+}
+
+#latitude {
+  margin-bottom: 0;
+}
+
+#longitude {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+#accuracy {
+  margin-top: 0;
+}
+
+#timestamp {
+  margin-bottom: 0.1em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 75%;
+}
+
+#serenityNow {
+  width: 109px;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+@media (max-height: 675px) {
+  #serenityNow {
+    width: 69px;
+    height: 60px;
+  }
 }

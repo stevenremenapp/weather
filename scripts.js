@@ -32,7 +32,7 @@ if (navigator.geolocation) {
         //display the temperature
         let tempDisplay = document.querySelector('#temp');
         //info on javascript escapes here: https://mathiasbynens.be/notes/javascript-escapes
-        tempDisplay.textContent = "Temperature: " + response.main.temp + " \xb0F";
+        tempDisplay.textContent = response.main.temp + " \xb0F";
 
         //display the icon
         let iconDisplay = document.querySelector('#icon-js');
@@ -122,7 +122,7 @@ if (navigator.geolocation) {
 
         //display the location
         let location = document.querySelector('#location');
-        location.textContent = "Location: " + response.name + ",";
+        location.textContent = response.name + ",";
 
         //display the country
         let country = document.querySelector('#country');
