@@ -9,9 +9,9 @@ if (navigator.geolocation) {
     let latitudeMeasurement = position.coords.latitude;
     let longitudeMeasurement = position.coords.longitude;
 
-    latText.textContent = "Latitude: " + latitudeMeasurement;
-    lonText.textContent = "Longitude: " + longitudeMeasurement;
-    acc.textContent = "Accuracy: " + position.coords.accuracy + " m";
+    latText.textContent = "Latitude: " + latitudeMeasurement.toFixed(3);
+    lonText.textContent = "Longitude: " + longitudeMeasurement.toFixed(3);
+    acc.textContent = "Accuracy: " + Math.round(position.coords.accuracy) + " m";
     let timeStamp = new Date(position.timestamp);
     ts.textContent = "Updated: " + timeStamp.toLocaleString();
 
@@ -32,7 +32,8 @@ if (navigator.geolocation) {
         //display the temperature
         let tempDisplay = document.querySelector('#temp');
         //info on javascript escapes here: https://mathiasbynens.be/notes/javascript-escapes
-        tempDisplay.textContent = response.main.temp + " \xb0F";
+        tempDisplay.textContent = Math.round(response.main.temp) + " \xb0F";
+        console.log(response.main.temp);
 
         //display the icon
         let iconDisplay = document.querySelector('#icon-js');
@@ -54,7 +55,7 @@ if (navigator.geolocation) {
         console.log(unixTimeStamp);
         console.log(response.sys.sunset);
 
-
+        //switch statement to read the main weather data received and respond with the right gradient(s)
         switch (weather) {
           case 'Thunderstorm':
             if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
