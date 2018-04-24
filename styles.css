@@ -42,6 +42,7 @@ h1 {
   font-style: italic;
   transform: scaleY(1.25);
   margin-top: 0.25em;
+  margin-bottom: 0.25em;
 }
 
 p,
@@ -51,6 +52,7 @@ span {
 
 #latitude {
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 #longitude {
@@ -64,6 +66,40 @@ span {
 
 #temp {
   margin-bottom: 0;
+}
+
+#convert {
+  font-size: 75%;
+  margin-bottom: 0;
+}
+
+#tempButtons {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#celsius,
+#fahrenheit {
+  display: inline-block;
+  border: 1.5px solid black;
+  padding: 3px 6px;
+  width: 20px;
+  /*margin: 0 6px;*/
+  /*background: rgba(255, 0, 0, 0.5);*/
+  cursor: pointer;
+}
+
+#celsius:hover,
+#fahrenheit:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+#celsius {
+  border-radius: 30% 0 0 30%;
+}
+
+#fahrenheit {
+  border-radius: 0 30% 30% 0;
 }
 
 #timestamp {

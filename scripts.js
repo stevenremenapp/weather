@@ -56,8 +56,8 @@ if (navigator.geolocation) {
         let icon = response.weather[0].icon;
         let iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
         iconDisplay.setAttribute("src", iconUrl);
-        iconDisplay.style.height = '100px';
-        iconDisplay.style.width = '100px';
+        iconDisplay.style.height = '80px';
+        iconDisplay.style.width = '80px';
         //iconDisplay.src = iconUrl;
 
         //change the background gradient based on response.weather[0].main
