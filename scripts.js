@@ -45,10 +45,14 @@ if (navigator.geolocation) {
 
         celsius.addEventListener('click', function() {
           tempDisplay.textContent = tempCelsius + " \xb0C";
+          celsius.style.background = 'rgba(255, 255, 255, 0.6)';
+          fahrenheit.style.background = 'transparent';
         });
 
         fahrenheit.addEventListener('click', function() {
           tempDisplay.textContent = tempFahrenheit + " \xb0F";
+          fahrenheit.style.background = 'rgba(255, 255, 255, 0.6)';
+          celsius.style.background = 'transparent';
         })
 
         //display the icon

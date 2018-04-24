@@ -65,16 +65,12 @@ span {
 }
 
 #temp {
+  margin-top: 0;
   margin-bottom: 0;
-}
-
-#convert {
-  font-size: 75%;
-  margin-bottom: 0;
+  font-size: 200%;
 }
 
 #tempButtons {
-  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -91,7 +87,7 @@ span {
 
 #celsius:hover,
 #fahrenheit:hover {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 #celsius {
@@ -100,6 +96,24 @@ span {
 
 #fahrenheit {
   border-radius: 0 30% 30% 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+#zipCode {
+  margin-top: 12px;
+  height: 20px;
+}
+
+#search {
+  display: inline-block;
+  border: 1.5px solid black;
+  height: 20px;
+  padding: 1.5px;
+  cursor: pointer;
+}
+
+#search:hover {
+  background: rgba(255, 255, 255, 0.9);
 }
 
 #timestamp {
