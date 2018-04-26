@@ -45,14 +45,18 @@ if (navigator.geolocation) {
 
         celsius.addEventListener('click', function() {
           tempDisplay.textContent = tempCelsius + " \xb0C";
-          celsius.style.background = 'rgba(255, 255, 255, 0.6)';
-          fahrenheit.style.background = 'transparent';
+          // celsius.style.background = 'rgba(255, 255, 255, 0.6)';
+          // fahrenheit.style.background = 'transparent';
+          fahrenheit.classList.remove("active");
+          celsius.classList.add("active");
         });
 
         fahrenheit.addEventListener('click', function() {
           tempDisplay.textContent = tempFahrenheit + " \xb0F";
-          fahrenheit.style.background = 'rgba(255, 255, 255, 0.6)';
-          celsius.style.background = 'transparent';
+          // fahrenheit.style.background = 'rgba(255, 255, 255, 0.6)';
+          // celsius.style.background = 'transparent';
+          celsius.classList.remove("active");
+          fahrenheit.classList.add("active");
         })
 
         //display the icon
@@ -148,11 +152,57 @@ if (navigator.geolocation) {
         //display the country
         let country = document.querySelector('#country');
         country.textContent = response.sys.country;
+
+
       }
     }
 
     request.open("GET", url, true);
     request.send();
+
+
+
+    //behavior on clicking Go button
+    let go = document.querySelector('#search');
+    let cityInput = document.querySelector('#city');
+
+    let cityRequest = new XMLHttpRequest();
+
+    //grab input value on click
+    go.addEventListener("click", function() {
+      let city = cityInput.value;
+      let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=b056e3da825f49292fe0d4b5f8f8d9b3`;
+      console.log(city);
+      request.open("GET", cityUrl, true);
+      request.send();
+    });
+
+    //grab input value on pressing enter
+    cityInput.addEventListener("keydown", function(e) {
+      //console.log(e.keyCode);
+      if (e.keyCode === 13) {
+        let city = cityInput.value;
+        let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=b056e3da825f49292fe0d4b5f8f8d9b3`;
+        console.log(city);
+        request.open("GET", cityUrl, true);
+        request.send();
+      }
+    });
+
+    cityRequest.onreadystatechange = function() {
+      if (this.readyState === 4 && this.status === 200) {
+        let cityResponse = JSON.parse(this.responseText);
+        console.log(cityResponse);
+      } else {
+        let location = document.querySelector('#location');
+        location.textContent = "Is your city spelled correctly?";
+      }
+    }
+
+    // request.open("GET", cityUrl, true);
+    // request.send();
+
+
 
   });
 };
