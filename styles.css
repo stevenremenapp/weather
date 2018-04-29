@@ -17,7 +17,7 @@ body {
   justify-content: center;*/
   /*height: 100vh;*/
   width: 220px;
-  height: 400px;
+  height: 440px;
   /*thanks: https://stackoverflow.com/questions/356809/best-way-to-center-a-div-on-a-page-vertically-and-horizontally*/
   position: absolute;
   top: 0;
@@ -41,7 +41,7 @@ h1 {
   font-family: Palatino, serif;
   font-style: italic;
   transform: scaleY(1.25);
-  margin-top: 0.25em;
+  margin-top: 0;
   margin-bottom: 0.25em;
 }
 
@@ -124,7 +124,8 @@ span {
 }
 
 #timestamp {
-  margin-bottom: 0.1em;
+  margin-bottom: 0;
+  margin-top: 0;
   position: absolute;
   bottom: 0;
   left: 0;
