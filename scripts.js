@@ -2,16 +2,13 @@
 if (navigator.geolocation) {
   //Get latitude, longitude, accuracy, and timestamp
   navigator.geolocation.getCurrentPosition(function(position) {
-    let latText = document.querySelector('#latitude');
-    let lonText = document.querySelector('#longitude');
-    let acc = document.querySelector('#accuracy');
+
+    //let acc = document.querySelector('#accuracy');
     let ts = document.querySelector('#timestamp');
     let latitudeMeasurement = position.coords.latitude;
     let longitudeMeasurement = position.coords.longitude;
 
-    latText.textContent = "Latitude: " + latitudeMeasurement.toFixed(3);
-    lonText.textContent = "Longitude: " + longitudeMeasurement.toFixed(3);
-    acc.textContent = "Accuracy: " + Math.round(position.coords.accuracy) + " m";
+    //acc.textContent = "Accuracy: " + Math.round(position.coords.accuracy) + " m";
     let timeStamp = new Date(position.timestamp);
     ts.textContent = "Updated: " + timeStamp.toLocaleString();
 
@@ -28,6 +25,12 @@ if (navigator.geolocation) {
 
         //log parsed response
         console.log(response);
+
+
+        let latText = document.querySelector('#latitude');
+        let lonText = document.querySelector('#longitude');
+        latText.textContent = "Latitude: " + response.coord.lat;
+        lonText.textContent = "Longitude: " + response.coord.lon;
 
         //display the temperature
         let tempDisplay = document.querySelector('#temp');
@@ -166,7 +169,7 @@ if (navigator.geolocation) {
     let go = document.querySelector('#search');
     let cityInput = document.querySelector('#city');
 
-    let cityRequest = new XMLHttpRequest();
+    //let cityRequest = new XMLHttpRequest();
 
     //grab input value on click
     go.addEventListener("click", function() {
@@ -189,15 +192,21 @@ if (navigator.geolocation) {
       }
     });
 
-    cityRequest.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        let cityResponse = JSON.parse(this.responseText);
-        console.log(cityResponse);
-      } else {
-        let location = document.querySelector('#location');
-        location.textContent = "Is your city spelled correctly?";
-      }
-    }
+    // cityRequest.onreadystatechange = function() {
+    //   if (this.readyState === 4 && this.status === 200) {
+    //     let cityResponse = JSON.parse(this.responseText);
+    //     console.log(cityResponse);
+    //
+    //     // let latText = document.querySelector('#latitude');
+    //     // let lonText = document.querySelector('#longitude');
+    //     latText.textContent = "Latitude: " + response.coord.lat;
+    //     console.log(response.coord.lat);
+    //     lonText.textContent = "Longitude: " + response.coord.lon;
+    //   } else {
+    //     let location = document.querySelector('#location');
+    //     location.textContent = "Is your city spelled correctly?";
+    //   }
+    // }
 
     // request.open("GET", cityUrl, true);
     // request.send();

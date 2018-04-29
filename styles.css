@@ -41,8 +41,7 @@ h1 {
   font-family: Palatino, serif;
   font-style: italic;
   transform: scaleY(1.25);
-  margin-top: 0;
-  margin-bottom: 0.25em;
+  margin: 0;
 }
 
 p,
@@ -52,17 +51,17 @@ span {
 
 #latitude {
   margin-bottom: 0;
-  margin-top: 0;
+  margin-top: 0.25em;
 }
 
 #longitude {
   margin-top: 0.1em;
-  margin-bottom: 0.1em;
+  margin-bottom: 0.25em;
 }
 
-#accuracy {
+/*#accuracy {
   margin-top: 0;
-}
+}*/
 
 #temp {
   margin-top: 0;
