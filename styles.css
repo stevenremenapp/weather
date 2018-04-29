@@ -17,7 +17,7 @@ body {
   justify-content: center;*/
   /*height: 100vh;*/
   width: 220px;
-  height: 380px;
+  height: 400px;
   /*thanks: https://stackoverflow.com/questions/356809/best-way-to-center-a-div-on-a-page-vertically-and-horizontally*/
   position: absolute;
   top: 0;
@@ -118,6 +118,11 @@ span {
   background: rgba(255, 255, 255, 0.9);
 }
 
+#note {
+  font-size: 75%;
+  margin: 0;
+}
+
 #timestamp {
   margin-bottom: 0.1em;
   position: absolute;
@@ -141,5 +146,12 @@ span {
   #serenityNow {
     width: 69px;
     height: 60px;
+  }
+}
+
+@media (max-height: 420px) {
+  .card {
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 }
