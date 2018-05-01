@@ -75,12 +75,40 @@ if (navigator.geolocation) {
         let weather = response.weather[0].main;
         console.log(weather);
 
+        let unixTimeStamp = Math.floor(Date.now() / 1000);
+
+        //use google maps time zone api to get time zone data for sunrise sunset
+        let timeZoneRequest = new XMLHttpRequest();
+        let timeZoneUrl = `https://maps.googleapis.com/maps/api/timezone/json?location=${response.coord.lat},${response.coord.lon}&timestamp=${unixTimeStamp}&key=AIzaSyAhMp5Ew5OZ0h0MfxbM5TFV_NAMp11xP0k`
+        timeZoneRequest.open("GET", timeZoneUrl, true);
+
+        timeZoneRequest.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            //you can't accurately move to find the data without parsing the response because the computer thinks it's one long string
+            let timeZoneResponse = JSON.parse(this.responseText);
+            console.log(timeZoneResponse);
+            console.log(timeZoneResponse.dstOffset);
+            let tzSunrise = response.sys.sunrise + timeZoneResponse.dstOffset + timeZoneResponse.rawOffset;
+            let localDate = new Date((response.sys.sunrise + timeZoneResponse.dstOffset + timeZoneResponse.rawOffset) * 1000);
+            console.log(localDate);
+
+            // console.log(tzSunrise);
+            // daylight(tzSunrise);
+          }
+        }
+        timeZoneRequest.send();
+
         //if it is nighttime add an additional gradient to darken the screen
         //Use the JavaScript Date Object to get the current time of day and convert it to Unix timestamp. JS gets time in ms, so convert to secs for Unix
-        let unixTimeStamp = Math.floor(Date.now() / 1000);
-        console.log(response.sys.sunrise);
-        console.log(unixTimeStamp);
-        console.log(response.sys.sunset);
+
+        console.log("SR: " + response.sys.sunrise);
+        daylight(response.sys.sunrise);
+        console.log("UNIX: " + unixTimeStamp);
+        daylight(unixTimeStamp);
+        console.log("DT: " + response.dt);
+        daylight(response.dt);
+        console.log("SS: " + response.sys.sunset);
+        daylight(response.sys.sunset);
 
         //switch statement to read the main weather data received and respond with the right gradient(s)
         switch (weather) {
@@ -215,3 +243,12 @@ if (navigator.geolocation) {
 
   });
 };
+
+function daylight(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let hours = date.getHours();
+  let minutes = "0" + date.getMinutes();
+  let seconds = "0" + date.getSeconds();
+  let formattedTime = hours + minutes.substr(-2) + seconds.substr(-2);
+  console.log(formattedTime);
+}
