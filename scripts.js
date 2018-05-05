@@ -71,9 +71,7 @@ if (navigator.geolocation) {
         iconDisplay.style.width = '80px';
         //iconDisplay.src = iconUrl;
 
-        //change the background gradient based on response.weather[0].main
-        let weather = response.weather[0].main;
-        console.log(weather);
+
 
         // get current local time of the user's computer
         //THX: http://www.javascriptkit.com/dhtmltutors/local-time-google-time-zone-api.shtml
@@ -99,6 +97,35 @@ if (navigator.geolocation) {
             console.log(localDate.toLocaleString());
             let localDateDisplay = document.querySelector('#localTime');
             localDateDisplay.innerHTML = "Local Date + Time:<br>" + localDate.toLocaleString();
+
+            //CONVERT UNIX SUNRISE & SUNSET TIMESTAMPS TO 24 HR READABLE TIME TO COMPARE THEM
+            //convert sunrise UTC time to milliseconds for JS
+            let sunrise = response.sys.sunrise * 1000;
+            let JSsunrise = new Date(sunrise);
+            let sunriseDisplay = document.querySelector('#sunrise');
+            sunriseDisplay.textContent = "Sunrise: " + JSsunrise.toLocaleTimeString();
+            console.log("JSsunrise: " + JSsunrise);
+            console.log("Hours: " + JSsunrise.getHours());
+            console.log("Minutes: " + JSsunrise.getMinutes());
+            console.log("Seconds: " + JSsunrise.getSeconds());
+
+            let sunset = response.sys.sunset * 1000;
+            let JSsunset = new Date(sunset);
+            let sunsetDisplay = document.querySelector('#sunset');
+            sunsetDisplay.textContent = "Sunset: " + JSsunset.toLocaleTimeString();
+            console.log("JSsunset: " + JSsunset);
+            console.log("Hours: " + JSsunset.getHours());
+            console.log("Minutes: " + JSsunset.getMinutes());
+            console.log("Seconds: " + JSsunset.getSeconds());
+
+            console.log("Local Time: " + localDate);
+            console.log("Hours: " + localDate.getHours());
+            console.log("Minutes: " + localDate.getMinutes());
+            console.log("Seconds: " + localDate.getSeconds());
+
+
+
+
             //console.log(timeZoneResponse.dstOffset);
             // let tzSunrise = response.sys.sunrise + timeZoneResponse.dstOffset + timeZoneResponse.rawOffset;
             // let localDate = new Date((response.sys.sunrise + timeZoneResponse.dstOffset + timeZoneResponse.rawOffset) * 1000);
@@ -113,21 +140,7 @@ if (navigator.geolocation) {
         //if it is nighttime add an additional gradient to darken the screen
         //Use the JavaScript Date Object to get the current time of day and convert it to Unix timestamp. JS gets time in ms, so convert to secs for Unix
 
-        //CONVERT UNIX SUNRISE & SUNSET TIMESTAMPS TO 24 HR READABLE TIME TO COMPARE THEM
-        //convert sunrise UTC time to milliseconds for JS
-        let sunrise = response.sys.sunrise * 1000;
-        let JSsunrise = new Date(sunrise);
-        console.log("JSsunrise: " + JSsunrise);
-        console.log("Hours: " + JSsunrise.getHours());
-        console.log("Minutes: " + JSsunrise.getMinutes());
-        console.log("Seconds: " + JSsunrise.getSeconds());
 
-        let sunset = response.sys.sunset * 1000;
-        let JSsunset = new Date(sunset);
-        console.log("JSsunset: " + JSsunset);
-        console.log("Hours: " + JSsunset.getHours());
-        console.log("Minutes: " + JSsunset.getMinutes());
-        console.log("Seconds: " + JSsunset.getSeconds());
 
 
         // console.log("SR: " + response.sys.sunrise);
@@ -139,6 +152,11 @@ if (navigator.geolocation) {
         // daylight(response.dt);
         // console.log("SS: " + response.sys.sunset);
         // daylight(response.sys.sunset);
+
+
+        //change the background gradient based on response.weather[0].main
+        let weather = response.weather[0].main;
+        console.log(weather);
 
         //switch statement to read the main weather data received and respond with the right gradient(s)
         switch (weather) {

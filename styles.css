@@ -63,6 +63,15 @@ span {
   margin-top: 0;
 }*/
 
+#sunrise {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#sunset {
+  margin-top: 0;
+}
+
 #temp {
   margin-top: 0;
   margin-bottom: 0;
