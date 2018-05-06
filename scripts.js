@@ -72,10 +72,9 @@ if (navigator.geolocation) {
         //iconDisplay.src = iconUrl;
 
 
-
         // get current local time of the user's computer
         //THX: http://www.javascriptkit.com/dhtmltutors/local-time-google-time-zone-api.shtml
-        //Had to update the article's timestamp for accuracy???
+
         let targetDate = new Date();
         let unixTimeStamp = Math.floor((new Date()).getTime() / 1000);
         let apiTimeStamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset()*60;
@@ -93,35 +92,57 @@ if (navigator.geolocation) {
             console.log(timeZoneResponse);
 
             let offsets = timeZoneResponse.dstOffset * 1000 + timeZoneResponse.rawOffset * 1000;
+            console.log(offsets);
+            console.log(timeZoneResponse.dstOffset);
             let localDate = new Date(apiTimeStamp * 1000 + offsets);
             console.log(localDate.toLocaleString());
             let localDateDisplay = document.querySelector('#localTime');
             localDateDisplay.innerHTML = "Local Date + Time:<br>" + localDate.toLocaleString();
 
             //CONVERT UNIX SUNRISE & SUNSET TIMESTAMPS TO 24 HR READABLE TIME TO COMPARE THEM
+            //NEED TO CONVERT SUNRISE AND SUNSET TIMES TO RIGHT TIME ZONE
             //convert sunrise UTC time to milliseconds for JS
-            let sunrise = response.sys.sunrise * 1000;
-            let JSsunrise = new Date(sunrise);
-            let sunriseDisplay = document.querySelector('#sunrise');
-            sunriseDisplay.textContent = "Sunrise: " + JSsunrise.toLocaleTimeString();
-            console.log("JSsunrise: " + JSsunrise);
-            console.log("Hours: " + JSsunrise.getHours());
-            console.log("Minutes: " + JSsunrise.getMinutes());
-            console.log("Seconds: " + JSsunrise.getSeconds());
 
-            let sunset = response.sys.sunset * 1000;
-            let JSsunset = new Date(sunset);
+
+            //let sunOffsets = timeZoneResponse.dstOffset + timeZoneResponse.rawOffset;
+            //let sunriseDate = new Date();
+            let sunrise = response.sys.sunrise;
+            console.log(sunrise);
+            //let sunriseTimestamp = sunriseDate.getTime(sunrise)/1000 + (sunriseDate.getTimezoneOffset() * 60000);
+
+            //let sunriseOffsets = timeZoneResponse.dstOffset * 1000 + timeZoneResponse.rawOffset * 1000;
+            //let localSunriseDate = new Date(sunriseTimestamp * 1000 + offsets);
+
+            // let machineDate = new Date(sunrise);
+            // let machineOffset = machineDate.getTimezoneOffset()*60;
+            // let sunriseOffsets = timeZoneResponse.dstOffset + timeZoneResponse.rawOffset;
+            // let sunriseAdjusted = sunrise - machineOffset + (timeZoneResponse.rawOffset * 1000);
+            // console.log(offsets);
+            // console.log(machineOffset*1000);
+
+            let JSsunrise = new Date(sunrise * 1000);
+            let sunriseDisplay = document.querySelector('#sunrise');
+            let tz = timeZoneResponse.timeZoneId;
+            console.log(tz);
+            sunriseDisplay.textContent = "Sunrise: " + JSsunrise.toLocaleTimeString('en-US', { timeZone: [tz] });
+            console.log("JSsunrise: " + JSsunrise);
+            console.log("Hours: " + JSsunrise.getUTCHours());
+            console.log("Minutes: " + JSsunrise.getUTCMinutes());
+            console.log("Seconds: " + JSsunrise.getUTCSeconds());
+
+            let sunset = response.sys.sunset;
+            let JSsunset = new Date(sunset * 1000);
             let sunsetDisplay = document.querySelector('#sunset');
-            sunsetDisplay.textContent = "Sunset: " + JSsunset.toLocaleTimeString();
+            sunsetDisplay.textContent = "Sunset: " + JSsunset.toLocaleTimeString('en-US', { timeZone: [tz] });
             console.log("JSsunset: " + JSsunset);
-            console.log("Hours: " + JSsunset.getHours());
-            console.log("Minutes: " + JSsunset.getMinutes());
-            console.log("Seconds: " + JSsunset.getSeconds());
+            console.log("Hours: " + JSsunset.getUTCHours());
+            console.log("Minutes: " + JSsunset.getUTCMinutes());
+            console.log("Seconds: " + JSsunset.getUTCSeconds());
 
             console.log("Local Time: " + localDate);
-            console.log("Hours: " + localDate.getHours());
-            console.log("Minutes: " + localDate.getMinutes());
-            console.log("Seconds: " + localDate.getSeconds());
+            console.log("Hours: " + localDate.getUTCHours());
+            console.log("Minutes: " + localDate.getUTCMinutes());
+            console.log("Seconds: " + localDate.getUTCSeconds());
 
 
 
