@@ -120,7 +120,18 @@ if (navigator.geolocation) {
             // console.log(machineOffset*1000);
 
             let sunrise = response.sys.sunrise;
+            // let sunriseUTC = new Date(sunrise * 1000);
+            // let sunsetUTC = new Date(sunset * 1000);
+            let apiTimeStampUTC = new Date(apiTimeStamp * 1000);
             console.log(sunrise);
+            // console.log(sunriseUTC);
+            // console.log(sunriseUTC.getUTCHours());
+            console.log(apiTimeStamp);
+            // console.log(apiTimeStampUTC);
+            // console.log(apiTimeStampUTC.getUTCHours());
+            //console.log(sunset);
+            // console.log(sunsetUTC);
+            // console.log(sunsetUTC.getUTCHours());
             let JSsunrise = new Date(sunrise * 1000);
             let sunriseDisplay = document.querySelector('#sunrise');
             let tz = timeZoneResponse.timeZoneId;
@@ -183,63 +194,63 @@ if (navigator.geolocation) {
         //switch statement to read the main weather data received and respond with the right gradient(s)
         switch (weather) {
           case 'Thunderstorm':
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon === '11d') {
               document.body.style.background = "linear-gradient(to right, #283048, #859398)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #283048, #859398)";
             }
             break;
           case 'Drizzle':
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon === '09d') {
               document.body.style.background = "linear-gradient(to right, #4ca1af, #c4e0e5)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #4ca1af, #c4e0e5)";
             }
             break;
           case 'Rain':
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon === '10d') {
               document.body.style.background = "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6)";
             }
             break;
           case 'Snow':
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon === '13d') {
               document.body.style.background = "linear-gradient(to right, #e6dada, #274046)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #e6dada, #274046)";
             }
             break;
           case 'Atmosphere':
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon === '50d') {
               document.body.style.background = "linear-gradient(to right, #3e5151, #decba4)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #3e5151, #decba4)";
             }
             break;
           case 'Clear':
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon === '01d') {
               document.body.style.background = "linear-gradient(to right, #1c92d2, #f2fcfe)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #1c92d2, #f2fcfe)";
             }
             break;
           case 'Clouds':
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon === '02d' || icon === '03d' || icon === '04d') {
               document.body.style.background = "linear-gradient(to right, #e2dfdc, #ffffff)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #e2dfdc, #ffffff)";
             }
             break;
           case 'Extreme':
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #40e0d0, #ff8c00, #ff0080)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #40e0d0, #ff8c00, #ff0080)";
             }
             break;
           default:
-            if (unixTimeStamp > response.sys.sunrise && unixTimeStamp < response.sys.sunset) {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #E9E4F0, #D3CCE3)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #E9E4F0, #D3CCE3)";
