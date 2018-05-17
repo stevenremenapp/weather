@@ -257,6 +257,21 @@ if (navigator.geolocation) {
             }
         }
 
+        //if info menu is toggled, then hide weather card
+        let weatherCard = document.querySelector('.card');
+        let menu = document.querySelector('#menu');
+
+        menu.addEventListener('click', function() {
+          if (menu.checked) {
+            console.log(menu.checked);
+            weatherCard.style.display = "none";
+          } else {
+            console.log(menu.checked);
+            weatherCard.style.display = "block";
+          };
+        });
+
+
         //display the location
         let location = document.querySelector('#location');
         location.textContent = response.name + ",";
