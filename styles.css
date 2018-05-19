@@ -63,6 +63,11 @@ span {
   margin-top: 0;
 }*/
 
+#localTime {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
 #sunrise {
   margin-top: 0;
   margin-bottom: 0;
@@ -112,6 +117,7 @@ span {
 #city {
   margin-top: 12px;
   height: 20px;
+  max-width: 150px;
 }
 
 #search {
@@ -188,11 +194,13 @@ input:checked +label {
 
 input:checked ~ .menu-content {
   max-height: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 700px) {
   .collapsible-menu label {
-    padding: 30px;
+    padding: 25px;
   }
 }
 
@@ -209,10 +217,9 @@ input:checked ~ .menu-content {
     margin-bottom: 20px;
   }
 
-  input:checked ~ .menu-content {
+  /*input:checked ~ .menu-content {
     max-height: 130%;
-    /*overflow-y: scroll;*/
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+    overflow-y: scroll;
+
+  }*/
 }
