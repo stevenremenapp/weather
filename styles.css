@@ -154,8 +154,8 @@ span {
 /*collapsible menu base from: https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390*/
 
 .menu-content {
-  width: 200px;
-  height: 400px;
+  width: 210px;
+  height: 430px;
   /*thanks: https://stackoverflow.com/questions/356809/best-way-to-center-a-div-on-a-page-vertically-and-horizontally*/
   position: absolute;
   top: 0;

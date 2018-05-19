@@ -194,49 +194,49 @@ if (navigator.geolocation) {
         //switch statement to read the main weather data received and respond with the right gradient(s)
         switch (weather) {
           case 'Thunderstorm':
-            if (icon === '11d') {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #283048, #859398)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #283048, #859398)";
             }
             break;
           case 'Drizzle':
-            if (icon === '09d') {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #4ca1af, #c4e0e5)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #4ca1af, #c4e0e5)";
             }
             break;
           case 'Rain':
-            if (icon === '10d') {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6)";
             }
             break;
           case 'Snow':
-            if (icon === '13d') {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #e6dada, #274046)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #e6dada, #274046)";
             }
             break;
           case 'Atmosphere':
-            if (icon === '50d') {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #3e5151, #decba4)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #3e5151, #decba4)";
             }
             break;
           case 'Clear':
-            if (icon === '01d') {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #1c92d2, #f2fcfe)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #1c92d2, #f2fcfe)";
             }
             break;
           case 'Clouds':
-            if (icon === '02d' || icon === '03d' || icon === '04d') {
+            if (icon.includes('d')) {
               document.body.style.background = "linear-gradient(to right, #e2dfdc, #ffffff)";
             } else {
               document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #e2dfdc, #ffffff)";
