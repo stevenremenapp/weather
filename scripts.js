@@ -281,6 +281,8 @@ if (navigator.geolocation) {
         country.textContent = response.sys.country;
 
 
+      } else {
+        setTimeout(function() { alert("Error!"); }, 5000);
       }
     }
 
@@ -300,6 +302,7 @@ if (navigator.geolocation) {
       let city = cityInput.value;
       let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=b056e3da825f49292fe0d4b5f8f8d9b3`;
       console.log(city);
+      //request means it is calling the original openweather api call
       request.open("GET", cityUrl, true);
       request.send();
     });
@@ -311,6 +314,7 @@ if (navigator.geolocation) {
         let city = cityInput.value;
         let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=b056e3da825f49292fe0d4b5f8f8d9b3`;
         console.log(city);
+        //request means it is calling the original openweather api call
         request.open("GET", cityUrl, true);
         request.send();
       }
@@ -336,7 +340,9 @@ if (navigator.geolocation) {
     // request.send();
 
 
-
+    //callback function for what the browser should do if geolocation cannot work or is denied
+  }, function(error) {
+    alert("If you want local weather and sunset/sunrise times or to search for this data in other locations, you'll have to allow sharing of your position. If you only want local weather then just look outside :).");
   });
 };
 
