@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Now!</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body>
+    <div class="card">
+      <h1>Weather Now!</h1>
+      <p id="latitude"></p>
+      <p id="longitude"></p>
+      <!-- <p id="accuracy"></p> -->
+      <p id="localTime"></p>
+      <p id="sunrise"></p>
+      <p id="sunset"></p>
+      <p id="temp"></p>
+      <p id="tempButtons"><span id="celsius">&deg;C</span><span id="fahrenheit" class="active">&deg;F</span></p>
+      <img src="" class="icon" id="icon-js" alt="icon showing the weather">
+      <br>
+      <span id="location"></span>
+      <span id="country"></span>
+      <input type="text" id="city" placeholder="Search city here">
+      <span id="search">Go!</span>
+      <p id="timestamp"></p>
+    </div>
+    <!-- Collapsible Info Menu -->
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menu">
+      <label for="menu" id="label"></label>
+        <div class="menu-content">
+          <h1>Welcome!</h1>
+          <p>Search a city to see its current weather, time, and location info; please spell carefully. Your terms are not case sensitive, but a misspelling will not work. You may also want to add a country code for more specificity (e.g. Las Cruces will bring back Las Cruces in Chile, but Las Cruces, US will bring back Las Cruces in New Mexico).</p>
+          <p>The gradient background will change depending on weather and will darken depending on position of the sun in that location.</p>
+        </div>
+    </div>
+    <a href="https://youtu.be/Ow_9MglZrhs" target="_blank"><img src="serenity-now.png" id="serenityNow" alt="Frank Costanza from Seinfeld with a Serenity Now logo"></a>
+    <script type="text/javascript" src="scripts.js"></script>
+  </body>
+</html>
+
+<!-- INFO ICON BY Viktor Vorobyev from the Noun Project
+CLOSE ICON BY Ben from the Noun Project -->
