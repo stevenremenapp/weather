@@ -17,9 +17,13 @@ if (navigator.geolocation) {
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitudeMeasurement}&lon=${longitudeMeasurement}&units=imperial&appid=b056e3da825f49292fe0d4b5f8f8d9b3`;
 
     request.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
+      console.log(this.readyState);
+      console.log(this.status);
+      // console.log(this.responseText);
+      if ((this.readyState === 4 || this.status === 200) || this.statusText == "OK")  {
         //you can't accurately move to find the data without parsing the response because the computer thinks it's one long string
         let response = JSON.parse(this.responseText);
+        console.log("cod " + response.cod);
         //log unparsed response
         //console.log(request.responseText);
 
@@ -281,8 +285,15 @@ if (navigator.geolocation) {
         country.textContent = response.sys.country;
 
 
-      } else {
-        setTimeout(function() { alert("Error!"); }, 5000);
+      } else if (this.statusText != "OK") {
+        // window.addEventListener('error', function(e) {
+        //    alert("Something went wrong, please try again");
+        // }, true);
+      //   window.onerror = function(msg, url, linenumber) {
+      //    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+      //    return true;
+      // }
+        setTimeout(function() { alert(request.statusText); }, 1000);
       }
     }
 
