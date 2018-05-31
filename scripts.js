@@ -1,101 +1,44 @@
-//Check for browser geolocation abilities
 if (navigator.geolocation) {
-  //Get latitude, longitude, accuracy, and timestamp
   navigator.geolocation.getCurrentPosition(function(position) {
 
-    // question!!!
-    // https://stackoverflow.com/questions/28592859/geolocation-javascript-scope-issue
     let latitudeMeasurement = position.coords.latitude;
     let longitudeMeasurement = position.coords.longitude;
 
-    let ts = document.querySelector('#timestamp');
-    let timeStamp = new Date(position.timestamp);
-    ts.textContent = "Updated: " + timeStamp.toLocaleString();
-
     //make API call for weather data
-    //remove let/var to make it a globally accessible variable
-    request = new XMLHttpRequest();
+    //remove let/var to make request a globally accessible variable -- GLOBAL VARIABLE BAD
+    // refactor JS correctly to avoid global variables and pass the data into the correct functions
+    let request = new XMLHttpRequest();
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitudeMeasurement}&lon=${longitudeMeasurement}&units=imperial&appid=b056e3da825f49292fe0d4b5f8f8d9b3`;
 
     request.onreadystatechange = function() {
       console.log("ready state " + this.readyState);
       console.log("status " + this.status);
-      // console.log(this.responseText);
-      // https://stackoverflow.com/questions/46891615/unexpected-end-of-json-input-although-response-was-received
-      if (this.readyState === 4 && this.status === 200)  {
-        //you can't accurately move to find the data without parsing the response because the computer thinks it's one long string
-        // take off var/let to make response a global variable and accessible anywhere
-        response = JSON.parse(this.responseText);
-        console.log("cod " + response.cod);
-        //log unparsed response
-        //console.log(request.responseText);
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          //you can't accurately move to find the data without parsing the response because the computer thinks it's one long string
+          // take off var/let to make response a global variable and accessible anywhere -- GLOBAL VARIABLE BAD
+          // refactor JS correctly to avoid global variables and pass the data into the correct functions
+          let response = JSON.parse(this.responseText);
+          console.log(response);
 
-        //log parsed response
-        console.log(response);
+          displayUpdatedUserTimestamp();
+          displayLatLon(response.coord.lat, response.coord.lon);
+          displayAndSwitchTempUnit(response.main.temp);
+          displayIcon(response.weather[0].icon);
+          displayCityCountry(response.name, response.sys.country);
+          changeBackground(response.weather[0].main, response.weather[0].icon);
+          searchLocation(request);
+          displayLocalCurrentTimeSunriseSunsetTimes(response.coord.lat, response.coord.lon, response.sys.sunrise, response.sys.sunset);
+          hideWeatherCard();
 
-        displayLatLon();
-        displayAndSwitchTempUnit();
-        displayIcon();
-        displayCityCountry();
-        changeBackground();
-        searchLocation();
-        hideWeatherCard();
-
-
-        // get current local time of the user's computer
-        //THX: http://www.javascriptkit.com/dhtmltutors/local-time-google-time-zone-api.shtml
-
-        let targetDate = new Date();
-        let unixTimeStamp = Math.floor((new Date()).getTime() / 1000);
-        let apiTimeStamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset()*60;
-
-        //use google maps time zone api to get time zone data for sunrise sunset
-        let timeZoneRequest = new XMLHttpRequest();
-        let timeZoneUrl = `https://maps.googleapis.com/maps/api/timezone/json?location=${response.coord.lat},${response.coord.lon}&timestamp=${apiTimeStamp}&key=AIzaSyAhMp5Ew5OZ0h0MfxbM5TFV_NAMp11xP0k`
-        timeZoneRequest.open("GET", timeZoneUrl, true);
-
-        timeZoneRequest.onreadystatechange = function() {
-          if (this.readyState === 4 && this.status === 200) {
-            //you can't accurately move to find the data without parsing the response because the computer thinks it's one long string
-            let timeZoneResponse = JSON.parse(this.responseText);
-            console.log(timeZoneResponse);
-
-            let offsets = timeZoneResponse.dstOffset * 1000 + timeZoneResponse.rawOffset * 1000;
-            let localDate = new Date(apiTimeStamp * 1000 + offsets);
-            let localDateDisplay = document.querySelector('#localTime');
-            localDateDisplay.innerHTML = "Local Date + Time:<br>" + localDate.toLocaleString();
-
-            let tz = timeZoneResponse.timeZoneId;
-
-            let sunrise = response.sys.sunrise;
-            let JSsunrise = new Date(sunrise * 1000);
-            let sunriseDisplay = document.querySelector('#sunrise');
-            sunriseDisplay.textContent = "Sunrise: " + JSsunrise.toLocaleTimeString('en-US', { timeZone: [tz] });
-
-            let sunset = response.sys.sunset;
-            let JSsunset = new Date(sunset * 1000);
-            let sunsetDisplay = document.querySelector('#sunset');
-            sunsetDisplay.textContent = "Sunset: " + JSsunset.toLocaleTimeString('en-US', { timeZone: [tz] });
-          }
+        } else if (this.status >= 400) {
+          alert("Is your city misspelled? Please try again!");
         }
-        timeZoneRequest.send();
       }
-      // else if (response.coord.lat != 200 || response.coord.lon != 200) {
-        // window.addEventListener('error', function(e) {
-        //    alert("Something went wrong, please try again");
-        // }, true);
-      //   window.onerror = function(msg, url, linenumber) {
-      //    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
-      //    return true;
-      // }
-      //   setTimeout(function() { alert(request.statusText); }, 1000);
-      // }
     };
 
     request.open("GET", url, true);
     request.send();
-
-
 
     //callback function for what the browser should do if geolocation cannot work or is denied
   }, function(error) {
@@ -106,42 +49,24 @@ if (navigator.geolocation) {
 
 // ------ FUNCTIONS ------ //
 
-function displayUpdateTimestamp() {
+function displayUpdatedUserTimestamp() {
+  let ts = document.querySelector('#timestamp');
+  let timeStamp = new Date();
+  ts.textContent = "Updated: " + timeStamp.toLocaleString();
+};
 
-}
-
-function displayLatLon() {
+function displayLatLon(latitude, longitude) {
   let latText = document.querySelector('#latitude');
   let lonText = document.querySelector('#longitude');
-  latText.textContent = "Latitude: " + response.coord.lat;
-  lonText.textContent = "Longitude: " + response.coord.lon;
-}
+  latText.textContent = "Latitude: " + latitude;
+  lonText.textContent = "Longitude: " + longitude;
+};
 
-function displayIcon() {
-  let iconDisplay = document.querySelector('#icon-js');
-  let icon = response.weather[0].icon;
-  let iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
-  iconDisplay.setAttribute("src", iconUrl);
-  iconDisplay.style.height = '80px';
-  iconDisplay.style.width = '80px';
-}
-
-function displayCityCountry() {
-  //display the location
-  let cityDisplay = document.querySelector('#cityDisplay');
-  cityDisplay.textContent = response.name + ",";
-
-  //display the country
-  let country = document.querySelector('#country');
-  country.textContent = response.sys.country;
-}
-
-function displayAndSwitchTempUnit() {
-  //Variables
+function displayAndSwitchTempUnit(temperature) {
   let tempDisplay = document.querySelector('#temp');
-  let tempFahrenheit = Math.round(response.main.temp);
+  let tempFahrenheit = Math.round(temperature);
   let tempCelsius = Math.round((tempFahrenheit -32) * 5/9);
-  //Display
+
   //info on javascript escapes here: https://mathiasbynens.be/notes/javascript-escapes
   tempDisplay.textContent = tempFahrenheit + " \xb0F";
 
@@ -151,33 +76,48 @@ function displayAndSwitchTempUnit() {
 
   celsius.addEventListener('click', function() {
     tempDisplay.textContent = tempCelsius + " \xb0C";
-    // celsius.style.background = 'rgba(255, 255, 255, 0.6)';
-    // fahrenheit.style.background = 'transparent';
     fahrenheit.classList.remove("active");
     celsius.classList.add("active");
   });
 
   fahrenheit.addEventListener('click', function() {
     tempDisplay.textContent = tempFahrenheit + " \xb0F";
-    // fahrenheit.style.background = 'rgba(255, 255, 255, 0.6)';
-    // celsius.style.background = 'transparent';
     celsius.classList.remove("active");
     fahrenheit.classList.add("active");
   });
 };
 
-function changeBackground() {
-  let weather = response.weather[0].main;
-  let icon = response.weather[0].icon;
+function displayIcon(weatherIcon) {
+  let iconDisplay = document.querySelector('#icon-js');
+  let icon = weatherIcon;
+  let iconUrl = `http://openweathermap.org/img/w/${icon}.png`;
+  iconDisplay.setAttribute("src", iconUrl);
+  iconDisplay.style.height = '80px';
+  iconDisplay.style.width = '80px';
+};
+
+function displayCityCountry(cityName, countryName) {
+  //display the location
+  let cityDisplay = document.querySelector('#cityDisplay');
+  cityDisplay.textContent = cityName + ",";
+
+  //display the country
+  let country = document.querySelector('#country');
+  country.textContent = countryName;
+};
+
+function changeBackground(weatherType, weatherIcon) {
+  let weather = weatherType;
+  let icon = weatherIcon;
   console.log(weather);
 
   //switch statement to read the main weather data received and respond with the right gradient(s)
   switch (weather) {
     case 'Thunderstorm':
       if (icon.includes('d')) {
-        document.body.style.background = "linear-gradient(to right, #283048, #859398)";
+        document.body.style.background = "linear-gradient(to right, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), linear-gradient(to right, #fc466b, #3f5efb)";
       } else {
-        document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #283048, #859398)";
+        document.body.style.background = "linear-gradient(to right, rgba(84, 84, 84, 0.7), rgba(84, 84, 84, 0.7)), linear-gradient(to right, #fc466b, #3f5efb)";
       }
       break;
     case 'Drizzle':
@@ -245,7 +185,7 @@ function changeBackground() {
   }
 };
 
-function searchLocation() {
+function searchLocation(request) {
   //behavior on clicking Go button
   let go = document.querySelector('#search');
   let cityInput = document.querySelector('#city');
@@ -272,7 +212,7 @@ function searchLocation() {
       request.send();
     }
   });
-}
+};
 
 function hideWeatherCard() {
   //if info menu is toggled, then hide weather card
@@ -289,3 +229,42 @@ function hideWeatherCard() {
     };
   });
 };
+
+function displayLocalCurrentTimeSunriseSunsetTimes(latitude, longitude, sunriseTime, sunsetTime) {
+  // get current local time of the user's computer
+  //THX: http://www.javascriptkit.com/dhtmltutors/local-time-google-time-zone-api.shtml
+
+  let targetDate = new Date();
+  let apiTimeStamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset()*60;
+
+  //use google maps time zone api to get time zone data for sunrise sunset
+  let timeZoneRequest = new XMLHttpRequest();
+  let timeZoneUrl = `https://maps.googleapis.com/maps/api/timezone/json?location=${latitude},${longitude}&timestamp=${apiTimeStamp}&key=AIzaSyAhMp5Ew5OZ0h0MfxbM5TFV_NAMp11xP0k`
+  timeZoneRequest.open("GET", timeZoneUrl, true);
+
+  timeZoneRequest.onreadystatechange = function() {
+    if (this.readyState === 4 && this.status === 200) {
+      //you can't accurately move to find the data without parsing the response because the computer thinks it's one long string
+      let timeZoneResponse = JSON.parse(this.responseText);
+      console.log(timeZoneResponse);
+
+      let offsets = timeZoneResponse.dstOffset * 1000 + timeZoneResponse.rawOffset * 1000;
+      let localDate = new Date(apiTimeStamp * 1000 + offsets);
+      let localDateDisplay = document.querySelector('#localTime');
+      localDateDisplay.innerHTML = "Local Date + Time:<br>" + localDate.toLocaleString();
+
+      let tz = timeZoneResponse.timeZoneId;
+
+      let sunrise = sunriseTime;
+      let JSsunrise = new Date(sunrise * 1000);
+      let sunriseDisplay = document.querySelector('#sunrise');
+      sunriseDisplay.textContent = "Sunrise: " + JSsunrise.toLocaleTimeString('en-US', { timeZone: [tz] });
+
+      let sunset = sunsetTime;
+      let JSsunset = new Date(sunset * 1000);
+      let sunsetDisplay = document.querySelector('#sunset');
+      sunsetDisplay.textContent = "Sunset: " + JSsunset.toLocaleTimeString('en-US', { timeZone: [tz] });
+    }
+  }
+  timeZoneRequest.send();
+}
