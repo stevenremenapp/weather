@@ -1,5 +1,5 @@
 # The Weather App
-### created for freeCodeCamp
+### Created for freeCodeCamp
 
 [See it live here.](https://stevenremenapp.github.io/weather/)
 

@@ -1,21 +1,40 @@
 body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
+  /*GRADIENT DOESN'T WORK WITH A BODY MARGIN OF 0*/
+  /*margin: 0;*/
+  /*background: salmon;*/
+  background: #D3CCE3;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .card {
-  display: flex;
+  /*margin: 0 auto;*/
+  /*max-width: 310px;
+  max-height: 400px;*/
+  /*display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  max-width: 300px;
-  height: 100vh;
-
-  /*REMOVED CARD BACKGROUND SHADOW BECAUSE FLEX NEEDED HEIGHT OF THE CARD SET TO 100VH TO VERTICALLY CENTER*/
-  /*border-radius: 5%;*/
-  /*box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.15),
-              inset 0 0 180px 40px rgba(255, 255, 255, 0.15);*/
+  justify-content: center;*/
+  /*height: 100vh;*/
+  width: 220px;
+  height: 460px;
+  /*thanks: https://stackoverflow.com/questions/356809/best-way-to-center-a-div-on-a-page-vertically-and-horizontally*/
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  /*background: rgba(255, 255, 255, 0.05);*/
+  border-radius: 5%;
+  /*box-shadow: 7px 7px 30px 5px rgba(198, 198, 198, 0.4);*/
+  box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.15),
+              inset 0 0 180px 40px rgba(255, 255, 255, 0.15);
+  /*width: 40%;
+  height: 80%;
+  margin: 10% 30%;*/
+  /*text-align: center;*/
 }
 
 h1 {
@@ -36,13 +55,17 @@ span {
 }
 
 #longitude {
-  margin: 0;
+  margin-top: 0.1em;
+  margin-bottom: 0.25em;
 }
+
+/*#accuracy {
+  margin-top: 0;
+}*/
 
 #localTime {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  text-align: center;
 }
 
 #sunrise {
@@ -88,11 +111,13 @@ span {
 
 #fahrenheit {
   border-radius: 0 30% 30% 0;
+  /*background: rgba(255, 255, 255, 0.6);*/
 }
 
 #city {
   margin-top: 12px;
   height: 20px;
+  /*max-width: 150px;*/
 }
 
 #search {
@@ -113,7 +138,14 @@ span {
 }
 
 #timestamp {
-  /*align-self: flex-end;*/
+  margin-bottom: 0;
+  margin-top: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 75%;
 }
 
@@ -128,12 +160,18 @@ span {
 /*collapsible menu base from: https://codeburst.io/how-to-make-a-collapsible-menu-using-only-css-a1cd805b1390*/
 
 .menu-content {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 300px;
-  height: 100vh;
+  width: 210px;
+  height: 430px;
+  /*thanks: https://stackoverflow.com/questions/356809/best-way-to-center-a-div-on-a-page-vertically-and-horizontally*/
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  max-height: 0;
+  overflow: hidden;
 }
 
 .collapsible-menu label {
@@ -155,7 +193,7 @@ input:checked +label {
 }
 
 input:checked ~ .menu-content {
-  height: 100vh;
+  max-height: 100%;
 }
 
 @media screen and (max-width: 700px) {
@@ -176,4 +214,10 @@ input:checked ~ .menu-content {
     margin-top: 20px;
     margin-bottom: 20px;
   }
+
+  /*input:checked ~ .menu-content {
+    max-height: 130%;
+    overflow-y: scroll;
+
+  }*/
 }

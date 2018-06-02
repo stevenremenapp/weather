@@ -218,14 +218,17 @@ function hideWeatherCard() {
   //if info menu is toggled, then hide weather card
   let weatherCard = document.querySelector('.card');
   let menu = document.querySelector('#menu');
+  let menuContent = document.querySelector('.menu-content');
 
   menu.addEventListener('click', function() {
     if (menu.checked) {
       console.log(menu.checked);
       weatherCard.style.display = "none";
+      menuContent.style.display = "flex";
     } else {
       console.log(menu.checked);
-      weatherCard.style.display = "block";
+      weatherCard.style.display = "flex";
+      menuContent.style.display = "none";
     };
   });
 };
